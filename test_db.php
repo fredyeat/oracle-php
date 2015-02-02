@@ -1,5 +1,5 @@
 <?php
-//test db_php
+//test db_php para comprobar la conexion a Oracle
 require('ac_db.inc.php');
 $db = new \Oracle\Db("test_db", "Chris");
 $sql = "SELECT first_name, phone_number FROM employees ORDER BY employee_id";
