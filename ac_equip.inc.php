@@ -159,8 +159,8 @@ EOF;
         if ($isprivilegeduser){
          echo <<<EOF
          <div id='menu'>
-         <div id='user'>Logged in as : $username </div) 
-         <ul> 
+        <div></div)
+         <ul>
          <li><a href='ac_report.php'>Equipment Report</a></li>
          <li><a href='ac_graph_page.php'>Equipment Graph</a></li>
          <li><a href='ac_logo_upload.php'>Upload Logo</a></li>        

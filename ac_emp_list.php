@@ -91,7 +91,7 @@ function calcstartrow($sess){
 function printrecords($sess, $atfirstrow, $res){
     echo <<< EOF
     <table border='1'>
-    <tr><th>Name</th><th>Phone<th><th>Equipment</th></tr>
+    <tr><th>Name</th><th>Phone</th><th>Equipment</th></tr>
 EOF;
     foreach ($res as $row){
         $name = htmlspecialchars($row['NAME'], ENT_NOQUOTES, 'UTF-8');
