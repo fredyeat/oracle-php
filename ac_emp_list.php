@@ -37,7 +37,7 @@ $page->printFooter();
      $DB = new \Oracle\DB("Equipment", $sess->username);
      $sql = "SELECT employee_id, first_name || ' ' || last_name AS name,
              phone_number FROM employees ORDER BY employee_id";
-    $res = $db->execFetchPage($sql, "Equipment Query", $startrow,
+    $res = $DB->execFetchPage($sql, "Equipment Query", $startrow,
  NUMRECORDSPERPAGE);
  if ($res){
      printrecords($sess, ($startrow === 1),$res);

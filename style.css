@@ -35,10 +35,10 @@ td, th {
 
 #menu {
     position: absolute;
-    left: 5px;
+    left: 15px;
     width: 180px;
     display: block;
-    background-color: #dddddd;
+    //background-color: #dddddd;
 }
 
 #user {
