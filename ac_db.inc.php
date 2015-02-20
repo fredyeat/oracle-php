@@ -134,6 +134,39 @@ class Db {
         $res = $this->execFetchAll($query, $action, $bindvars);
         return($res);
     }
+    /**
+     *Run a  call to a stored that returns a REF CURSOR data
+     * set in a bind variable. The data set is fetched and returned.
+     * 
+     * Call like Db::refcurexecfetchall("begin myproc(:rc, :p); end",
+     *              "Fetch data", ":rc", array(array(":p", $p, -1)))
+     * The asumption that there is only one refcursor is an artificial
+     * limitation of refcurexefetchall()
+     * 
+     * @param string $sql a SQL strin calling PL/SQL stored procedure
+     * @param string $Action text for End-to-End Application Tracing
+     * @param string $rcname the name of the REF CURSOR bind variable
+     * @param array $otherbindvars Binds. Array (bv_name, php_variable, length)
+     * @param array Returns an array of tuples
+     */
+      
+    public function refcurExecFetchAll($sql, $action, $rcname,
+            $otherbindvars = array()){
+        $this->stid = oci_parse($this->conn, $sql);
+        $rc = oci_new_cursor($this->conn);
+        oci_bind_by_name($this->stid, $rcname, $rc, -1, OCI_B_CURSOR);
+        foreach ($otherbindvars as $bv){
+            //oci_bind_by_name(resource, bv_name, php_variable, length)
+            oci_bind_by_name($this->stid, $bv[0], $bv[1], $bv[2]);
+        }
+        oci_set_action($this->conn, $action);
+        oci_execute($this->stid);
+        oci_execute($rc); // run the ref cursor as if it were a statement id
+        oci_fetch_all($rc, $res);
+        $this->stid = null;
+        return($res);
+                
+    }
 }
  
 ?>
