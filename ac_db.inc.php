@@ -65,7 +65,7 @@ class Db {
      *                 "Insert data", array(array(":c1", $c1, -1),
      *                                      array(":c2", $c2, -1)))
      *
-     * For returned bind values:
+         * For returned bind values:
      *     Db::execute("begin :r := myfunc(:p); end",
      *                 "Call func", array(array(":r", &$r, 20),
      *                                    array(":p", $p, -1)))

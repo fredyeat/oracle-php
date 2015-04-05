@@ -22,7 +22,17 @@ $empid = (int) $_GET['empid'];
 $page =new \Equipment\Page;
 $page->printheader("AnyCo Corp. Show Equipment");
 $page->printMenu($sess->username, $sess->isPrivilegedUser());
-printcontent($sess, $empid);
+ob_start();
+try {
+    printcontent($sess, $empid);
+} catch (Exception $e) {
+    ob_end_clean();
+    echo "<div id='content'>\n";
+    echo "Sorry, an error occurred...";
+    echo "<div>";
+}
+ob_end_flush();
+
 $page->printFooter();
 
 //Functions
@@ -54,7 +64,7 @@ function printcontent($sess, $empid){
     $db = new \Oracle\Db("Equipment", $sess->username);
     $empname = htmlspecialchars(getempname($db, $empid), ENT_NOQUOTES, 'UTF-8');
     echo "$empname has: ";
-    
+    /*throw new Exception;*/
     $sql = "BEGIN get_equip(:id, :rc); END;";
     $res = $db->refcurExecFetchAll($sql, "Get Equipment Lis",
             "rc", array(array(":id", $empid, -1)));
